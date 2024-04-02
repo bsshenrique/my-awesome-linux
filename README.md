@@ -8,6 +8,7 @@
 - [Distribuições](#distribuições)
   - [Arch Linux](#arch-linux)
     - [Instalação](#instalação)
+- [Virtualização](#virtualização)
 
 ## Comunidade
 Sites úteis criados pela comunidade Linux.
@@ -178,5 +179,22 @@ xf86-video-amdgpu
 O guia [selection](https://wiki.archlinux.org/title/clipboard#Selections) pode ser muito útil aos usuários do `kgx`.
 
 Para usuários do GNOME, pode ser bem útil [criar documentos com o menu do clique direito](https://wiki.archlinux.org/title/GNOME/Files#Create_a_new_document_from_the_right-click_menu).
+
+## Virtualização
+A capacidade de criar ambientes controlados e isolados oferece um benefício único, errar.  
+Além de poder errar o quanto quiser, é muito válido utilizar máquinas virtuais e containers para manter o sistema operacional limpo e fluído.
+
+### Docker
+É incomparável o quão é mais prático e fácil usar containers em relação a instalar softwares diretamente no sistema operacional.
+
+`sudo pacman -S docker`  
+`sudo systemctl enable docker.service`  
+`sudo systemctl start docker.service`  
+`sudo usermod -aG docker $USER`
+
+Após isso é só realizar o logon novamente com o seu usuário.
+
+
+
 
 
