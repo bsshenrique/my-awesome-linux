@@ -6,6 +6,7 @@
 ## Tópicos
 - [Comunidade Linux](#comunidade)
 - [Distribuições](#distribuições)
+  - [Arch Linux](#arch-linux)
 
 ## Comunidade
 Sites úteis criados pela comunidade Linux.
@@ -29,3 +30,13 @@ Não existe distribuição Linux perfeita, sempre haverá uma distribuição par
 
 Para cada necessidade sempre haverá uma distribuição diferente.  
 O mais importante é entender que o meu propósito não é o mesmo que o seu, teste diferentes distribuições até encontrar a que mais se adapte ao propósito buscado.  
+
+### Arch Linux
+Quanto mais simples, melhor, e é por isso que o [Arch Linux](https://wiki.archlinux.org/title/Arch_Linux) é um sistema operacional que me chama a atenção.  
+O Arch Linux tem como propósito simplicidade e uso apenas do essencial.
+
+Pode parecer estranho mencionar estabilidade em [rolling release](https://wiki.archlinux.org/title/system_maintenance#Partial_upgrades_are_unsupported), mas em minha experiência nunca tive problemas e por mais controverso que pareça, sempre tive problemas com distribuições Linux que oferecem o modelo de distribuição por "major updates", principalmente Ubuntu.  
+
+
+Se você ainda pensa "o Linux deu problema e agora só formatando", tire isso da cabeça.  
+Além da [wiki](https://wiki.archlinux.org) do Arch Linux ser a documentação mais completa que provavelmente existe em toda internet, também existem formas de resolver problemas, como por exemplo, o uso de snapshots oferecidas pelo [Btrfs](https://wiki.archlinux.org/title/btrfs).
