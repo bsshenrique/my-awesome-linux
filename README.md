@@ -158,7 +158,7 @@ Pacotes para uma boa experiência de trabalho e lazer.
 
 ```text
 git
-neofetch
+fastfetch
 ```
 
 Utilizar o [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh) com os plugins [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions), [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) e o tema [Powerlevel10k](https://github.com/romkatv/powerlevel10k) certamente vão oferecer uma boa produtividade.
