@@ -1,136 +1,163 @@
 # My Awesome Linux
 ![GitHub last commit (branch)](https://img.shields.io/github/last-commit/bsshenrique/my-awesome-linux/main)
 
-**My Awesome Linux** é um repositório pessoal descrevendo o que considero em um ambiente Desktop Linux.  
+**My Awesome Linux** é um repositório pessoal descrevendo o que considero em um ambiente Desktop Linux.
+
 
 ## Tópicos
-- [Comunidade Linux](#comunidade)
-- [Distribuições](#distribuições)
-  - [Arch Linux](#arch-linux)
-    - [Instalação](#instalação)
+- [Sites úteis](#sites-úteis)
+- [Distribuições Linux](#distribuições-linux)
+- [Arch Linux](#arch-linux)
+  - [Instalação](#instalação)
+  - [Configurações adicionais](#configurações-adicionais)
+- [Logs](#logs)
+- [Sistema de arquivos](#sistema-de-arquivos)
 - [Virtualização](#virtualização)
 
-## Comunidade
-Sites úteis criados pela comunidade Linux.
 
-**[Awesome Linux Software](https://github.com/luong-komorebi/Awesome-Linux-Software)**  
-**[Diolinux](https://diolinux.com.br/)**  
-**[DistroSea](https://distrosea.com/)**  
-**[DistroWatch](https://distrowatch.com)**  
-**[GuiaFoca](https://www.guiafoca.org/)**  
-**[Linux Brasil](https://www.reddit.com/r/linuxbrasil/)**  
-**[Linux Guide](https://github.com/mikeroyal/Linux-Guide)**  
-**[List of Linux distributions](https://en.wikipedia.org/wiki/List_of_Linux_distributions)**.
+## Sites Úteis
+[Diolinux](https://diolinux.com.br/)  
+[DistroSea](https://distrosea.com/)  
+[DistroWatch](https://distrowatch.com)  
+[GitHub - Awesome Linux Software](https://github.com/luong-komorebi/Awesome-Linux-Software)  
+[GitHub - Linux Guide](https://github.com/mikeroyal/Linux-Guide)  
+[GNU](https://www.gnu.org/)  
+[Linux manual page](https://man7.org/linux/man-pages/index.html)  
+[Manual pages from Arch Linux packages](https://man.archlinux.org/)  
+[The Linux Kernel Archives](https://www.kernel.org/)  
+[Wikipedia - List of Linux distributions](https://en.wikipedia.org/wiki/List_of_Linux_distributions)
 
-## Distribuições
-Não existe distribuição Linux perfeita, sempre haverá uma distribuição para um caso de uso específico. Por exemplo, a minha percepção atual é a seguinte:
 
+## Distribuições Linux
+Não existe distribuição Linux perfeita, sempre haverá uma distribuição para um caso de uso específico.
+
+Por exemplo, minha percepção atual é a seguinte:  
 [Alpine Linux](https://www.alpinelinux.org/) para containers e testes;  
-[Arch Linux](https://archlinux.org/) como desktop para uso pessoal;  
+[Arch Linux](https://archlinux.org/) como desktop de uso pessoal;  
+[Fedora](https://fedoraproject.org/) como *workstation*, desktop de uso pessoal, live USB e máquinas virtuais;  
 [Tails](https://tails.net/) se o foco for privacidade;  
-[Ubuntu](https://ubuntu.com/) e [Fedora](https://fedoraproject.org/) muito úteis para live USB e máquinas virtuais.
+[Whonix](https://www.whonix.org/) se o foco for privacidade.
 
 Para cada necessidade sempre haverá uma distribuição diferente.  
-O mais importante é entender que o meu propósito não é o mesmo que o seu, teste diferentes distribuições até encontrar a que mais se adapte ao propósito buscado.  
-
-### Arch Linux
-Quanto mais simples, melhor, e é por isso que o [Arch Linux](https://wiki.archlinux.org/title/Arch_Linux) é um sistema operacional que me chama a atenção.  
-O Arch Linux tem como propósito simplicidade e uso apenas do essencial.
-
-Pode parecer estranho mencionar estabilidade em [rolling release](https://wiki.archlinux.org/title/system_maintenance#Partial_upgrades_are_unsupported), mas em minha experiência nunca tive problemas e por mais controverso que pareça, sempre tive problemas com distribuições Linux que oferecem o modelo de distribuição por "major updates", principalmente Ubuntu.  
+Teste diferentes distribuições até encontrar a que mais se adapte ao seu uso.
 
 
-Se você ainda pensa "o Linux deu problema e agora só formatando", tire isso da cabeça.  
-Além da [wiki](https://wiki.archlinux.org) do Arch Linux ser a documentação mais completa que provavelmente existe em toda internet, também existem formas de resolver problemas, como por exemplo, o uso de snapshots oferecidas pelo [Btrfs](https://wiki.archlinux.org/title/btrfs).
+## Arch Linux
+O [Arch Linux](https://wiki.archlinux.org/title/Arch_Linux) se destaca por sua filosofia minimalista, por permitir que o usuário crie o seu sistema e por ter uma das [wikis](https://wiki.archlinux.org) mais completas em toda internet.
 
-#### Instalação
-Evite seguir tutoriais, seu dispositivo e necessidades certamente são diferentes de outros.  
-Use como base a [documentação de instalação](https://wiki.archlinux.org/title/installation_guide) e modifique o que for necessário para o seu uso.  
+### Instalação
+Evite tutoriais, seu dispositivo e uso certamente são diferentes de outros.  
+Utilize a [documentação de instalação](https://wiki.archlinux.org/title/installation_guide) ou o [archinstall](https://wiki.archlinux.org/title/Archinstall) para uma instalação guiada.  
+No meu caso, seguindo a documentação, precisei alterar as seguintes etapas:
 
-No meu caso, seguindo o tutorial, precisei alterar as seguintes etapas:  
-
-- **Particionamento do disco**
-
-Com o [GPT fdisk](https://wiki.archlinux.org/title/GPT_fdisk), o disco foi preparado com o seguinte layout:
-
-| Partição | Setor              | Tipo | Montagem  | Formato |
-| :------: | :----------------: | :--: | :-------: | :-----: |
-| 1        | default à +512M    | EF00 | /mnt/boot | FAT32   |
-| 2        | default à +2G      | 8200 | SWAP      | -       |
-| 3        | default à default  | 8304 | /mnt      | ext4    |
-
-- **Pacotes essenciais**
-
-`base dhcpcd linux-lts linux-firmware nano`
-
-- **Localização**
-
-Sistema operacional configurado em inglês e os formatos em português:
+#### Particionamento do dispositivo
+Usando o [GPT fdisk](https://wiki.archlinux.org/title/GPT_fdisk), gosto de seguir o layout abaixo.
+| Partição | Setor              | Tipo | Dispositivo  | Nome   | Montagem  | Formato |
+| :------: | :----------------: | :--: | :----------: | :----: | :-------: | :-----: |
+| 1        | default à +1GiB    | EF00 | /dev/device1 | EFI    | /mnt/boot | FAT32   |
+| 2        | default à default  | 8304 | /dev/device2 | system | /mnt      | BTRFS   |
 
 ```bash
-# /etc/locale.gen
+# Usando o gdisk
+gdisk /dev/device
 
-en_US.UTF-8 UTF-8
-pt_BR.UTF-8 UTF-8
+# Usando o sgdisk
+sgdisk --zap-all \
+  --new=1:0:+1GiB --typecode=1:EF00 --change-name=1:EFI \
+  --new=2:0:0 --typecode=2:8304 --change-name=2:system \
+  --print \
+  /dev/device
 ```
 
-`locale-gen`.
-
-- **Microcode**
-
-[Microcode](https://wiki.archlinux.org/title/Microcode) correspondente ao dispositivo.
-
-- **Boot loader**
-
-Apenas o  básico do [systemd-boot](https://wiki.archlinux.org/title/Systemd-boot) já é o suficiente para que tudo funcione perfeitamente.  
-O deve `loader.conf` conforme sugestão e um único loader nomeado de `arch.conf` já é o suficiente.
+O layout utilizado para os subvolumes é o mesmo usado pelo `archinstall` e sugerido pelo [Snapper](https://wiki.archlinux.org/title/Snapper#Suggested_filesystem_layout).
 
 ```bash
+mkfs.fat -F 32 -n EFI -v /dev/device1
+mkfs.btrfs --label system -v /dev/device2
+
+mount LABEL=system -t btrfs /mnt
+
+btrfs subvolume create /mnt/{@,@home,@log,@pkg,@.snapshots}
+
+umount -R /mnt
+
+MOUNT_OPTIONS="X-mount.mkdir,defaults,compress=zstd:1,noatime"
+
+mount -o $MOUNT_OPTIONS,subvol=@ -t btrfs LABEL=system /mnt
+mount -o $MOUNT_OPTIONS,subvol=@home -t btrfs LABEL=system /mnt/home
+mount -o $MOUNT_OPTIONS,subvol=@log -t btrfs LABEL=system /mnt/var/log
+mount -o $MOUNT_OPTIONS,subvol=@pkg -t btrfs LABEL=system /mnt/var/cache/pacman/pkg
+mount -o $MOUNT_OPTIONS,subvol=@.snapshots -t btrfs LABEL=system /mnt/.snapshots
+mount -m -t vfat -o dmask=0027,fmask=0137 /dev/device1 /mnt/boot
+```
+
+No momento de instalação dos pacotes bases, instale também o [microcode](https://wiki.archlinux.org/title/Microcode) correspondente.
+
+`pacstrap -K /mnt amd-ucode base linux linux-firmware nano networkmanager`
+
+#### Localização
+Edite o `/etc/locale.gen` removendo o comentário de `en_US.UTF-8 UTF-8` e `pt_BR.UTF-8 UTF-8`.  
+Execute o comando `locale-gen`.  
+
+`echo "LANG=en_US.UTF-8" >> /etc/locale.conf`  
+`echo "KEYMAP=br-abnt2" >> /etc/vconsole.conf`  
+Altere as configurações de formato utilizando o ambiente gráfico e após a instalação do sistema.
+
+#### Host
+```plaintext
+#/etc/hosts
+
+127.0.0.1     localhost archlinux
+::1           localhost archlinux
+```
+
+#### Boot loader
+Instale o `systemd-boot`:  
+`bootctl install`
+
+Configure o `loader.conf` conforme o exemplo [loader configuration](https://wiki.archlinux.org/title/Systemd-boot#Loader_configuration).  
+Adicione a *entry* `arch.conf` conforme o exemplo [adding loaders](https://wiki.archlinux.org/title/Systemd-boot#Adding_loaders).
+
+Ao usar algum microcode, como a `amd-ucode.img`, deve-se sempre referenciá-la antes do `initrd` principal.
+
+Para utilizar um subvolume como um ponto de montagem, faça o apontamento no *loader*. Exemplo [mounting subvolume as root](https://wiki.archlinux.org/title/Btrfs#Mounting_subvolume_as_root).
+
+```sh
 # arch.conf
-
 title   Arch Linux
-linux   /vmlinuz-linux-lts
+linux   /vmlinuz-linux
 initrd  /amd-ucode.img
-initrd  /initramfs-linux-lts.img
-# Cuidado.
-# Se for definir o root por UUID, PARTUUI ou semelhante, saiba que são coisas diferentes.
-# options root=UUID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx rw
-# options root=PARTUUI=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx rw
+initrd  /initramfs-linux.img
+options root=UUID=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX rootflags=subvol=@ rw
+
+# UUID, PARTUUID ou semelhante são coisas diferentes.
 #
-# Consulte com uma das formas:
-# /dev/disk/by-*
-# $ blkid /dev/disco
+# É possível consultar as identificações de /dev/root_partition usando:
+# ls -l /dev/disk/by-*
+# blkid /dev/root_partition
 #
-# Ou use diretamente o caminho do disco
-options root=/dev/particao rw
+# Também é possível usar diretamente o caminho do dispositivo:
+# options root=/dev/root_partition rw
 ```
 
-Novamente, cuidado.  
-Entenda o que é [UEFI](https://wiki.archlinux.org/title/Unified_Extensible_Firmware_Interface) e [Secure Boot](https://wiki.archlinux.org/title/Unified_Extensible_Firmware_Interface/Secure_Boot).  
+Valide a configuração:  
+`bootclt list`
 
-A forma mais fácil que conheço para preparar o Arch Linux em dispositivos com Secure Boot é desabilitar o Secure Boot, em seguida limpar as chaves já configuradas e finalmente criar e assinar as chaves utilizando o `sbctl`.
-
-- **Usuário**
-
-Antes de instalar um ambiente desktop, prefiro criar o meu próprio usuário.  
-Não gosto de utilizar o root em ambiente gráfico, em minha concepção o root só deve ser usado em tarefas específicas ao root.  
-
-`useradd -m -G wheel -s /bin/bash usuario`  
-`passwd usuario`
-
-- **Pacotes básicos**
-
-Pacotes para uma boa experiência de uso do sistema.
+#### Pacotes básicos
+Pacotes que gosto de usar para uma boa experiência de uso do sistema.
 
 ```text
 base-devel
 btop
+btrfs-progs
+curl
+fastfetch
 firefox
+git
 gnome
+gnome-tweaks
 less
-networkmanager
 noto-fonts
-noto-fonts-cjk
 noto-fonts-emoji
 noto-fonts-extra
 pipewire
@@ -138,63 +165,123 @@ pipewire-alsa
 pipewire-audio
 pipewire-jack
 pipewire-pulse
+smartmontools
 sudo
-ttf-hack
 wget
 which
 wireplumber
+xdg-utils
 zip
 zsh
 ```
 
+Habilite os serviços necessários:  
 `systemctl enable gdm.service`  
 `systemctl enable NetworkManager`
 
-Também é necessário configurar o grupo `wheel` utilizando o `visudo` para [permitir que usuários do grupo usem o sudo](https://wiki.archlinux.org/title/sudo#Example_entries).
+#### Usuário
+O root deve ser usado apenas em tarefas específicas ao `root`.  
 
-- **Pacotes extras**
+`useradd -m -G wheel -s /bin/bash usuario`  
+`passwd usuario`
 
-Pacotes para uma boa experiência de trabalho e lazer.
+Também é necessário configurar o grupo `wheel` utilizando o `visudo` para [permitir que usuários usem o sudo](https://wiki.archlinux.org/title/sudo#Example_entries).
 
-```text
-git
-fastfetch
+Nesse ponto, já é possível realizar o `umount -R /mnt` e reiniciar o sistema.
+
+#### Drivers
+Como usuário [AMDGPU](https://wiki.archlinux.org/title/AMDGPU) leia o artigo e entenda o que é necessário.  
+Configure também o [lm_sensors](https://wiki.archlinux.org/title/Lm_sensors).
+
+### Configurações adicionais
+#### GNOME
+Caso necessário, altere o funcionamento do [clipboard](https://wiki.archlinux.org/title/Clipboard).  
+
+[Criar documentos com o menu do clique direito](https://wiki.archlinux.org/title/GNOME/Files#Create_a_new_document_from_the_right-click_menu).
+
+Instale o `Extension Manager` pelo GNOME Software (Flathub).
+
+Instale e/ou ative as extensões:  
+[Cliboard Indicator](https://extensions.gnome.org/extension/779/clipboard-indicator/)  
+[Removable Drive Menu](https://extensions.gnome.org/extension/7/removable-drive-menu/)  
+[System Monitor](https://extensions.gnome.org/extension/6807/system-monitor/)
+
+#### ZSH
+Instale o [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh) e os seguintes plugins:  
+[Powerlevel10k](https://github.com/romkatv/powerlevel10k)  
+[zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)  
+[zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
+
+Ao usar o `Oh My Zsh` sempre realize a instalação de temas e *plugins* por meio dele.  
+Crie um script para atualizar periodicamente os temas e *plugins*, basta um `git pull` nos diretórios em `~/.oh-my-zsh/custom/plugins/` e `~/.oh-my-zsh/custom/themes/`.
+
+O comportamento padrão de sugestão do após colar é bastante irritante, ele pode ser removido da seguinte maneira:
+
+```bash
+plugins=(...)
+
+source $ZSH/oh-my-zsh.sh
+
+# User configuration
+ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(bracketed-paste)
 ```
 
-Utilizar o [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh) com os plugins [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions), [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) e o tema [Powerlevel10k](https://github.com/romkatv/powerlevel10k) certamente vão oferecer uma boa produtividade.
+#### nano
+Use a instrução `echo "set linenumbers" > ~/.nanorc` para exibir o número de linhas.
 
-Se o seu dispositivo ter uma placa gráfica da AMD, leia o guia [AMDGPU](https://wiki.archlinux.org/title/AMDGPU).  
-Provavelmente você irá instalar os seguintes pacotes:
-```text
-lib32-vulkan-radeon
-lib32-libva-mesa-driver
-libva-mesa-driver
-mesa
-vulkan-radeon
-xf86-video-amdgpu
+#### pacman
+```bash
+du -hs /var/cache/pacman/pkg/ # Verifica o espaço consumido pelo cache dos pacotes
+
+pacman -Sc                    # Remove do cache versões antigas dos pacotes instalados
+pacman -Scc                   # Remove todos os pacotes do cache
+
+pacman -Qtdq                  # Lista pacotes instalados como dependências que não são requeridos por nenhum outro pacote
+pacman -R $(pacman -Qtdq)     # Remove os pacotes listados acima
 ```
 
-- **Configurações adicionais**
 
-O guia [selection](https://wiki.archlinux.org/title/clipboard#Selections) pode ser muito útil aos usuários do `kgx`.
+## Logs
+O diretório `/var/log` tem como propósito armazenar *logs* do sistema e de serviços.  
+De maneira geral, os *logs* no Linux são acessados por:
 
-Para usuários do GNOME, pode ser bem útil [criar documentos com o menu do clique direito](https://wiki.archlinux.org/title/GNOME/Files#Create_a_new_document_from_the_right-click_menu).
+```bash
+dmesg                         # dmesg, display message, buffer de logs do kernel
+dmesg | grep -i "error"
+
+journalctl                    # Ferramenta do systemd para visualizar logs
+journalctl _UID=id            # Logs por ID de usuário
+
+journalctl --disk-usage
+journalctl --vacuum-size=x    # Limpa os logs mais antigos excedentes ao tamanho de "x"
+                              # Ex.: 500M, 1G
+
+journalctl --vacuum-time=x    # Limpa os logs mais antigos do que o período de "x"
+                              # Ex.: 7d, 3month, 1h, 1y
+
+journalctl -k                 # Equivalente ao dmesg
+journalctl -p n               # Logs por prioridade, de 1~7
+journalctl -u name.service    # Logs por serviço             
+```
+
+
+## Sistemas de arquivos
+Consulte o [artigo](./articles/file-systems.md).
+
 
 ## Virtualização
-A capacidade de criar ambientes controlados e isolados oferece um benefício único, errar.  
-Além de poder errar o quanto quiser, é muito válido utilizar máquinas virtuais e containers para manter o sistema operacional limpo e fluído.
+Máquinas virtuais e containers proporcionam ambientes controlados, de rápida implementação e descartáveis.
 
-### Docker
-É incomparável o quão é mais prático e fácil usar containers em relação a instalar softwares diretamente no sistema operacional.
-
+### Container
+Para utilizar containers, uma maneira bem simples é por meio do Docker:  
 `sudo pacman -S docker`  
 `sudo systemctl enable docker.service`  
 `sudo systemctl start docker.service`  
 `sudo usermod -aG docker $USER`
 
-Após isso é só realizar o logon novamente com o seu usuário.
+Encerre a sessão e em seguida entre novamente.
 
-
-
+### Máquinas virtuais
+Consulte o [artigo](./articles/virtual-machines.md).
 
 
