@@ -1,57 +1,63 @@
 # My Awesome Linux
 ![GitHub last commit (branch)](https://img.shields.io/github/last-commit/bsshenrique/my-awesome-linux/main)
 
-**My Awesome Linux** é um repositório pessoal descrevendo o que considero em um ambiente Desktop Linux.
+**My Awesome Linux** é um repositório pessoal descrevendo minha visão sobre o uso do Linux como desktop.
+
+> [!TIP]
+> Cada distribuição Linux tem a sua própria filosofia e é focada em um propósito.  
+> Teste diferentes distribuições até encontrar a que você julgar ideal.
+
+Por exemplo, considero:
+- [Alpine Linux](https://www.alpinelinux.org) - Containers e testes;
+- [Arch Linux](https://archlinux.org) - Desktop;
+- [Fedora](https://fedoraproject.org) - Desktop e *workstation*;
+- [Tails](https://tails.net) - Privacidade;
+- [Whonix](https://www.whonix.org) - Privacidade.
+
+
+O Linux é amplamente sustentado por diversas comunidades.  
+Se você é um entusiasta, veja alguns sites úteis:
+- Distribuições
+  - [DistroSea](https://distrosea.com)
+  - [DistroWatch](https://distrowatch.com)
+  - [The Linux Kernel Archives](https://www.kernel.org)
+  - [Wikipedia - List of Linux distributions](https://en.wikipedia.org/wiki/List_of_Linux_distributions)
+- Documentações
+  - [Arch manual pages](https://man.archlinux.org)
+  - [ArchWiki](https://wiki.archlinux.org)
+  - [Linux man pages online](https://man7.org/linux/man-pages/index.html)
+- Listas
+  - [ArchWiki - List of applications](https://wiki.archlinux.org/title/List_of_applications)
+  - [Awesome Linux Software](https://github.com/luong-komorebi/Awesome-Linux-Software)
+  - [Linux Guide](https://github.com/mikeroyal/Linux-Guide)
+  - [LinuxLinks](https://www.linuxlinks.com)
+- Notícias
+  - [9to5Linux](https://9to5linux.com)
+  - [Diolinux](https://diolinux.com.br)
+  - [GamingOnLinux](https://www.gamingonlinux.com)
+  - [It's FOSS](https://itsfoss.com)
 
 
 ## Tópicos
-- [Sites úteis](#sites-úteis)
-- [Distribuições Linux](#distribuições-linux)
 - [Arch Linux](#arch-linux)
   - [Instalação](#instalação)
-  - [Configurações adicionais](#configurações-adicionais)
+  - [Pós-instalação](#pós-instalação)
 - [Logs](#logs)
-- [Sistema de arquivos](#sistema-de-arquivos)
+- [pacman](#pacman)
+- [Sistemas de Arquivos](#sistemas-de-arquivos)
 - [Virtualização](#virtualização)
 
 
-## Sites Úteis
-[Diolinux](https://diolinux.com.br/)  
-[DistroSea](https://distrosea.com/)  
-[DistroWatch](https://distrowatch.com)  
-[GitHub - Awesome Linux Software](https://github.com/luong-komorebi/Awesome-Linux-Software)  
-[GitHub - Linux Guide](https://github.com/mikeroyal/Linux-Guide)  
-[GNU](https://www.gnu.org/)  
-[Linux manual page](https://man7.org/linux/man-pages/index.html)  
-[Manual pages from Arch Linux packages](https://man.archlinux.org/)  
-[The Linux Kernel Archives](https://www.kernel.org/)  
-[Wikipedia - List of Linux distributions](https://en.wikipedia.org/wiki/List_of_Linux_distributions)
-
-
-## Distribuições Linux
-Não existe distribuição Linux perfeita, sempre haverá uma distribuição para um caso de uso específico.
-
-Por exemplo, minha percepção atual é a seguinte:  
-[Alpine Linux](https://www.alpinelinux.org/) para containers e testes;  
-[Arch Linux](https://archlinux.org/) como desktop de uso pessoal;  
-[Fedora](https://fedoraproject.org/) como *workstation*, desktop de uso pessoal, live USB e máquinas virtuais;  
-[Tails](https://tails.net/) se o foco for privacidade;  
-[Whonix](https://www.whonix.org/) se o foco for privacidade.
-
-Para cada necessidade sempre haverá uma distribuição diferente.  
-Teste diferentes distribuições até encontrar a que mais se adapte ao seu uso.
-
-
 ## Arch Linux
-O [Arch Linux](https://wiki.archlinux.org/title/Arch_Linux) se destaca por sua filosofia minimalista, por permitir que o usuário crie o seu sistema e por ter uma das [wikis](https://wiki.archlinux.org) mais completas em toda internet.
-
 ### Instalação
-Evite tutoriais, seu dispositivo e uso certamente são diferentes de outros.  
-Utilize a [documentação de instalação](https://wiki.archlinux.org/title/installation_guide) ou o [archinstall](https://wiki.archlinux.org/title/Archinstall) para uma instalação guiada.  
-No meu caso, seguindo a documentação, precisei alterar as seguintes etapas:
+> [!IMPORTANT]
+> Evite tutoriais, seu dispositivo e uso certamente são diferentes de outros.  
+> Utilize a [documentação de instalação](https://wiki.archlinux.org/title/installation_guide) ou o [archinstall](https://wiki.archlinux.org/title/Archinstall) para uma instalação guiada.  
+> O artigo abaixo complementa, mas não substitui a documentação de instalação.
 
 #### Particionamento do dispositivo
-Usando o [GPT fdisk](https://wiki.archlinux.org/title/GPT_fdisk), gosto de seguir o layout abaixo.
+Usando o [GPT fdisk](https://wiki.archlinux.org/title/GPT_fdisk), o layout abaixo será construído.
+
 | Partição | Setor              | Tipo | Dispositivo  | Nome   | Montagem  | Formato |
 | :------: | :----------------: | :--: | :----------: | :----: | :-------: | :-----: |
 | 1        | default à +1GiB    | EF00 | /dev/device1 | EFI    | /mnt/boot | FAT32   |
@@ -69,7 +75,9 @@ sgdisk --zap-all \
   /dev/device
 ```
 
-O layout utilizado para os subvolumes é o mesmo usado pelo `archinstall` e sugerido pelo [Snapper](https://wiki.archlinux.org/title/Snapper#Suggested_filesystem_layout).
+> [!NOTE]
+> O layout utilizado para os subvolumes é o mesmo usado pelo `archinstall` e sugerido pelo [Snapper](https://wiki.archlinux.org/title/Snapper#Suggested_filesystem_layout).  
+> Esse layout garante um isolamento eficiente dos subvolumes.
 
 ```bash
 mkfs.fat -F 32 -n EFI -v /dev/device1
@@ -91,62 +99,78 @@ mount -o $MOUNT_OPTIONS,subvol=@.snapshots -t btrfs LABEL=system /mnt/.snapshots
 mount -m -t vfat -o dmask=0027,fmask=0137 /dev/device1 /mnt/boot
 ```
 
-No momento de instalação dos pacotes bases, instale também o [microcode](https://wiki.archlinux.org/title/Microcode) correspondente.
+#### Pacotes essenciais
+Além dos pacotes essenciais, instale o [microcode](https://wiki.archlinux.org/title/Microcode) correspondente.
 
 `pacstrap -K /mnt amd-ucode base linux linux-firmware nano networkmanager`
 
 #### Localização
-Edite o `/etc/locale.gen` removendo o comentário de `en_US.UTF-8 UTF-8` e `pt_BR.UTF-8 UTF-8`.  
-Execute o comando `locale-gen`.  
+Edite o `/etc/locale.gen`:
 
-`echo "LANG=en_US.UTF-8" >> /etc/locale.conf`  
-`echo "KEYMAP=br-abnt2" >> /etc/vconsole.conf`  
-Altere as configurações de formato utilizando o ambiente gráfico e após a instalação do sistema.
-
-#### Host
 ```plaintext
-#/etc/hosts
-
-127.0.0.1     localhost archlinux
-::1           localhost archlinux
+# Habilite as opções
+en_US.UTF-8 UTF-8
+pt_BR.UTF-8 UTF-8
 ```
 
+```bash
+locale-gen
+echo "LANG=en_US.UTF-8" >> /etc/locale.conf
+echo "KEYMAP=br-abnt2" >> /etc/vconsole.conf
+```
+
+> [!TIP]
+> Altere as configurações de formato utilizando o ambiente gráfico e após a instalação do sistema.
+
 #### Boot loader
-Instale o `systemd-boot`:  
-`bootctl install`
+Instale o `systemd-boot` utilizando o comando `bootctl install`.
 
-Configure o `loader.conf` conforme o exemplo [loader configuration](https://wiki.archlinux.org/title/Systemd-boot#Loader_configuration).  
-Adicione a *entry* `arch.conf` conforme o exemplo [adding loaders](https://wiki.archlinux.org/title/Systemd-boot#Adding_loaders).
+Configure o `esp/loader/loader.conf` conforme o exemplo [loader configuration](https://wiki.archlinux.org/title/Systemd-boot#Loader_configuration).  
 
-Ao usar algum microcode, como a `amd-ucode.img`, deve-se sempre referenciá-la antes do `initrd` principal.
+```
+default       arch.conf
+timeout       4
+console-mode  max
+editor        no
+```
 
-Para utilizar um subvolume como um ponto de montagem, faça o apontamento no *loader*. Exemplo [mounting subvolume as root](https://wiki.archlinux.org/title/Btrfs#Mounting_subvolume_as_root).
+Adicione a *entry* `esp/loader/entries/arch.conf` conforme o exemplo [adding loaders](https://wiki.archlinux.org/title/Systemd-boot#Adding_loaders).
+
+> [!TIP]
+> Ao usar algum *microcode*, como a `amd-ucode.img`, deve-se sempre referenciá-lo antes do `initrd` principal.
+
+> [!TIP]
+> Para utilizar um subvolume como um ponto de montagem, faça o apontamento no *loader*.  
+> Confira o exemplo [mounting subvolume as root](https://wiki.archlinux.org/title/Btrfs#Mounting_subvolume_as_root).
 
 ```sh
-# arch.conf
 title   Arch Linux
 linux   /vmlinuz-linux
 initrd  /amd-ucode.img
 initrd  /initramfs-linux.img
 options root=UUID=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX rootflags=subvol=@ rw
-
-# UUID, PARTUUID ou semelhante são coisas diferentes.
-#
-# É possível consultar as identificações de /dev/root_partition usando:
-# ls -l /dev/disk/by-*
-# blkid /dev/root_partition
-#
-# Também é possível usar diretamente o caminho do dispositivo:
-# options root=/dev/root_partition rw
 ```
 
-Valide a configuração:  
-`bootclt list`
 
-#### Pacotes básicos
-Pacotes que gosto de usar para uma boa experiência de uso do sistema.
+> [!TIP]
+> `UUID`, `PARTUUID` ou semelhante são coisas diferentes.
+>
+> É possível consultar as identificações de `/dev/root_partition` usando:  
+> `ls -l /dev/disk/by-*`  
+> `blkid /dev/root_partition`
+>
+> Também é possível usar diretamente o caminho do dispositivo:  
+> `options root=/dev/root_partition rw`
 
-```text
+Valide a configuração `bootclt list`.
+
+Realize o `umount -R /mnt` e reinicie o sistema.
+
+### Pós-instalação
+#### Configurações básicas
+Instale alguns dos pacotes básicos:
+
+```plaintext
 base-devel
 btop
 btrfs-progs
@@ -165,6 +189,7 @@ pipewire-alsa
 pipewire-audio
 pipewire-jack
 pipewire-pulse
+power-profiles-daemon
 smartmontools
 sudo
 wget
@@ -175,47 +200,54 @@ zip
 zsh
 ```
 
-Habilite os serviços necessários:  
-`systemctl enable gdm.service`  
-`systemctl enable NetworkManager`
+O `root` deve ser usado apenas em tarefas específicas ao `root`.  
+Crie um novo usuário e permita que o grupo `wheel` acesse o `sudo`.  
+Alguns outros exemplos: [sudo](https://wiki.archlinux.org/title/sudo#Example_entries).
 
-#### Usuário
-O root deve ser usado apenas em tarefas específicas ao `root`.  
+```bash
+useradd -m -G wheel -s /bin/bash usuario
+passwd usuario
 
-`useradd -m -G wheel -s /bin/bash usuario`  
-`passwd usuario`
+sudo EDITOR=nano visudo
+# Remova o comentário
+# %wheel      ALL=(ALL:ALL) ALL
+```
 
-Também é necessário configurar o grupo `wheel` utilizando o `visudo` para [permitir que usuários usem o sudo](https://wiki.archlinux.org/title/sudo#Example_entries).
+Defina os *hosts* em `/etc/hosts`:
 
-Nesse ponto, já é possível realizar o `umount -R /mnt` e reiniciar o sistema.
+```plaintext
+127.0.0.1       localhost
+::1             localhost ip6-localhost ip6-loopback
+ff02::1         ip6-allnodes
+ff02::2         ip6-allrouters
+```
+
+```bash
+sudo systemctl enable gdm.service
+sudo systemctl enable NetworkManager
+reboot
+```
 
 #### Drivers
-Como usuário [AMDGPU](https://wiki.archlinux.org/title/AMDGPU) leia o artigo e entenda o que é necessário.  
+Leia o artigo [AMDGPU](https://wiki.archlinux.org/title/AMDGPU) e entenda o que é necessário.  
+Os pacotes necessários provavelmente serão: `lib32-mesa`, `lib32-vulkan-radeon`, `mesa` e `vulkan-radeon`.
+
 Configure também o [lm_sensors](https://wiki.archlinux.org/title/Lm_sensors).
 
-### Configurações adicionais
-#### GNOME
-Caso necessário, altere o funcionamento do [clipboard](https://wiki.archlinux.org/title/Clipboard).  
+#### Zsh
+Instale o [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh).
 
-[Criar documentos com o menu do clique direito](https://wiki.archlinux.org/title/GNOME/Files#Create_a_new_document_from_the_right-click_menu).
+> [!TIP]
+> Ao usar o `Oh My Zsh` sempre realize a instalação de temas e *plugins* por meio dele.
+> 
+> É possível criar um script para atualizar os temas e *plugins* instalados.  
+> Basta um `git pull` nos diretórios em `~/.oh-my-zsh/custom/plugins/` e `~/.oh-my-zsh/custom/themes/`.
 
-Instale o `Extension Manager` pelo GNOME Software (Flathub).
+Instale o tema [Powerlevel10k](https://github.com/romkatv/powerlevel10k).  
+Instale os *plugins* [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) e [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting).
 
-Instale e/ou ative as extensões:  
-[Cliboard Indicator](https://extensions.gnome.org/extension/779/clipboard-indicator/)  
-[Removable Drive Menu](https://extensions.gnome.org/extension/7/removable-drive-menu/)  
-[System Monitor](https://extensions.gnome.org/extension/6807/system-monitor/)
-
-#### ZSH
-Instale o [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh) e os seguintes plugins:  
-[Powerlevel10k](https://github.com/romkatv/powerlevel10k)  
-[zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)  
-[zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
-
-Ao usar o `Oh My Zsh` sempre realize a instalação de temas e *plugins* por meio dele.  
-Crie um script para atualizar periodicamente os temas e *plugins*, basta um `git pull` nos diretórios em `~/.oh-my-zsh/custom/plugins/` e `~/.oh-my-zsh/custom/themes/`.
-
-O comportamento padrão de sugestão do após colar é bastante irritante, ele pode ser removido da seguinte maneira:
+> [!TIP]
+> O comportamento padrão de sugestão após colar algo é bastante irritante e ele pode ser removido conforme o exemplo abaixo.
 
 ```bash
 plugins=(...)
@@ -225,20 +257,61 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(bracketed-paste)
 ```
+#### GNOME
+Instale o [Extension Manager](https://flathub.org/apps/com.mattjakeman.ExtensionManager) pelo GNOME Software (Flathub).  
+Instale e/ou ative as extensões:  
+[Cliboard Indicator](https://extensions.gnome.org/extension/779/clipboard-indicator)  
+[Removable Drive Menu](https://extensions.gnome.org/extension/7/removable-drive-menu)  
+[System Monitor](https://extensions.gnome.org/extension/6807/system-monitor)
 
 #### nano
-Use a instrução `echo "set linenumbers" > ~/.nanorc` para exibir o número de linhas.
+Ative a exibição do número de linhas no editor: `echo "set linenumbers" > ~/.nanorc`.
 
-#### pacman
-```bash
-du -hs /var/cache/pacman/pkg/ # Verifica o espaço consumido pelo cache dos pacotes
+#### nftables
+`nftables` é um subsistema do *kernel* Linux desenvolvido para substituir e unificar as implementações `{ip,ip6,arp,eb}tables`.  
+No conceito básico do `nftables`, existem principalmente *tables* e *chains*.
 
-pacman -Sc                    # Remove do cache versões antigas dos pacotes instalados
-pacman -Scc                   # Remove todos os pacotes do cache
+*Tables* são conjuntos lógicos de *chains*.  
+Toda *table* pertence a uma família.
 
-pacman -Qtdq                  # Lista pacotes instalados como dependências que não são requeridos por nenhum outro pacote
-pacman -R $(pacman -Qtdq)     # Remove os pacotes listados acima
+```plaintext
+Família   Finalidade        Substitui
+ip	      IPv4              iptables
+ip6	      IPv6              ip6tables
+inet	    IPv4 e IPv6       iptables e ip6tables
+arp	      ARP               arptables
+bridge	  Bridge Ethernet   ebtables
 ```
+
+*Chains* são um conjunto de *rules* armazenados dentro de uma *table*.  
+Podem ser classificadas em *base chains*, que atuam em pontos específicos do fluxo de rede do kernel (como *input*, *output*, *forward*), ou em *regular chains*, que são usadas para agrupar *rules* e saltar para elas.
+
+As *rules* são processadas de cima para baixo, em ordem sequencial.  
+
+Comandos básicos para administrar o `nftables`.
+
+```bash
+nft list ruleset                      # Lista todas as regras
+
+nft flush ruleset                     # Remove todas as regras
+
+nft -c -f arquivo.conf                # Valida um arquivo de configuração
+nft -f arquivo.conf                   # Carrega um conjunto de regras
+# -c, --check
+# -f, --file
+
+nft list tables
+nft list table familia nome_tabela    # Lista todas as regras de uma tabela
+
+nft add table familia nome_tabela
+
+nft delete table familia nome_tabela
+
+nft flush table familia nome_tabela   # Remove todas as regras de uma tabela
+```
+
+Faça a instalação do `iptables-nft` conforme instruções no artigo [nftables](https://wiki.archlinux.org/title/Nftables).  
+Edite a configuração `/etc/nftables.conf` conforme sua necessidade.
 
 
 ## Logs
