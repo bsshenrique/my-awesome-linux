@@ -1,14 +1,14 @@
-## Sistema de arquivos
-### B-Tree File System
+# Sistemas de arquivos
+## B-Tree File System
 Btrfs (B-Tree File System) é um sistema de arquivos cujo funcionamento é baseado em COW.  
 Nem todos os [recursos do Btrfs](https://btrfs.readthedocs.io/en/latest/Status.html) são considerados estáveis, recomenda-se utilizar os com status de estável.
 
-#### COW (Copy-On-Write)
+### COW (Copy-On-Write)
 Quando um arquivo é modificado o bloco de dados existente no dispositivo não é alterado, apenas as alterações são gravadas em novos blocos com referências ao arquivo original.
 
 Habilitado por padrão, corresponde a opção `datacow` no *mount* do subvolume.
 
-#### Compressão
+### Compressão
 Btrfs suporta compressão, o que ajuda a aumentar significativamente a vida útil de dispositivos SSD.  
 As opções de compressão são `ZLIB`, `LZO` e `ZSTD`, sendo `ZSTD` a recomendada.
 
@@ -18,7 +18,7 @@ Para aplicar desfragmentação e compactar arquivos existentes:
 `btrfs filesystem defragment -r -v -c<tipo> /home`  
 `btrfs filesystem defragment -r -v -czstd:3 /home`  
 
-#### TRIM
+### TRIM
 TRIM SSD é uma tecnologia em SSD para permitir que sistema operacional informe ao SSD quais blocos de dados não estão mais em uso e podem ser apagados.  
 O TRIM é crucial para manter o desempenho e a durabilidade do SSD.
 
@@ -34,7 +34,7 @@ lsblk --discard /dev/sdX
 sudo fstrim -v /
 ```
 
-#### Subvolume
+### Subvolume
 Pode-se considerar um subvolume como um namespace de arquivo POSIX, ou seja, um delimitador abstrato, uma espécie de container, para os arquivos que ele armazena.  
 Subvolumes podem ser criados em qualquer lugar dentro da hierarquia do sistema de arquivos.  
 Caso um subvolume tenha o ponto de montagem em um diretório dentro do ponto de montagem de outro subvolume, ele funcionará de forma completamente independente.
@@ -81,7 +81,7 @@ mount -o subvolid=5 -t btrfs /dev/device /mnt
 mount -o subvol=@ ...
 ```
 
-#### Snapshot
+### Snapshot
 Devido ao CoW, quando uma *snapshot* é criada, o Btrfs cria um ponto de referência para os dados e metadados existentes em um subvolume, sem duplicá-los.  
 Apenas o que for alterado em relação ao *snapshot* será gravado.
 
@@ -124,7 +124,7 @@ btrfs sub d /my/dir
 btrfs sub snaps /.snapshots/snap /my/dir    # Restaura a snapshoft subvolume
 ```
 
-#### Aliases
+### Aliases
 O programa `btrfs` conta com diversos alias.  
 Exemplos:
 

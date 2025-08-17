@@ -127,7 +127,7 @@ Instale o `systemd-boot` utilizando o comando `bootctl install`.
 
 Configure o `esp/loader/loader.conf` conforme o exemplo [loader configuration](https://wiki.archlinux.org/title/Systemd-boot#Loader_configuration).  
 
-```
+```plaintext
 default       arch.conf
 timeout       4
 console-mode  max
@@ -136,21 +136,20 @@ editor        no
 
 Adicione a *entry* `esp/loader/entries/arch.conf` conforme o exemplo [adding loaders](https://wiki.archlinux.org/title/Systemd-boot#Adding_loaders).
 
-> [!TIP]
+> [!IMPORTANT]
 > Ao usar algum *microcode*, como a `amd-ucode.img`, deve-se sempre referenciá-lo antes do `initrd` principal.
 
-> [!TIP]
+> [!IMPORTANT]
 > Para utilizar um subvolume como um ponto de montagem, faça o apontamento no *loader*.  
 > Confira o exemplo [mounting subvolume as root](https://wiki.archlinux.org/title/Btrfs#Mounting_subvolume_as_root).
 
-```sh
+```plaintext
 title   Arch Linux
 linux   /vmlinuz-linux
 initrd  /amd-ucode.img
 initrd  /initramfs-linux.img
 options root=UUID=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX rootflags=subvol=@ rw
 ```
-
 
 > [!TIP]
 > `UUID`, `PARTUUID` ou semelhante são coisas diferentes.
@@ -162,8 +161,7 @@ options root=UUID=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX rootflags=subvol=@ rw
 > Também é possível usar diretamente o caminho do dispositivo:  
 > `options root=/dev/root_partition rw`
 
-Valide a configuração `bootclt list`.
-
+Valide a configuração `bootclt list`.  
 Realize o `umount -R /mnt` e reinicie o sistema.
 
 ### Pós-instalação
@@ -197,7 +195,6 @@ which
 wireplumber
 xdg-utils
 zip
-zsh
 ```
 
 O `root` deve ser usado apenas em tarefas específicas ao `root`.  
@@ -222,6 +219,9 @@ ff02::1         ip6-allnodes
 ff02::2         ip6-allrouters
 ```
 
+Ative a exibição do número de linhas no `nano`.  
+`echo "set linenumbers" > ~/.nanorc`
+
 ```bash
 sudo systemctl enable gdm.service
 sudo systemctl enable NetworkManager
@@ -234,84 +234,22 @@ Os pacotes necessários provavelmente serão: `lib32-mesa`, `lib32-vulkan-radeon
 
 Configure também o [lm_sensors](https://wiki.archlinux.org/title/Lm_sensors).
 
-#### Zsh
-Instale o [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh).
+#### Shell
+Consulte o artigo [shell](./articles/shell.md).
 
-> [!TIP]
-> Ao usar o `Oh My Zsh` sempre realize a instalação de temas e *plugins* por meio dele.
-> 
-> É possível criar um script para atualizar os temas e *plugins* instalados.  
-> Basta um `git pull` nos diretórios em `~/.oh-my-zsh/custom/plugins/` e `~/.oh-my-zsh/custom/themes/`.
-
-Instale o tema [Powerlevel10k](https://github.com/romkatv/powerlevel10k).  
-Instale os *plugins* [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) e [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting).
-
-> [!TIP]
-> O comportamento padrão de sugestão após colar algo é bastante irritante e ele pode ser removido conforme o exemplo abaixo.
-
-```bash
-plugins=(...)
-
-source $ZSH/oh-my-zsh.sh
-
-# User configuration
-ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(bracketed-paste)
-```
 #### GNOME
 Instale o [Extension Manager](https://flathub.org/apps/com.mattjakeman.ExtensionManager) pelo GNOME Software (Flathub).  
+
 Instale e/ou ative as extensões:  
-[Cliboard Indicator](https://extensions.gnome.org/extension/779/clipboard-indicator)  
-[Removable Drive Menu](https://extensions.gnome.org/extension/7/removable-drive-menu)  
-[System Monitor](https://extensions.gnome.org/extension/6807/system-monitor)
+[Cliboard Indicator](https://extensions.gnome.org/extension/779/clipboard-indicator);  
+[Removable Drive Menu](https://extensions.gnome.org/extension/7/removable-drive-menu);  
+[System Monitor](https://extensions.gnome.org/extension/6807/system-monitor).
 
-#### nano
-Ative a exibição do número de linhas no editor: `echo "set linenumbers" > ~/.nanorc`.
+#### Firewall
+Consulte o artigo [firewall](./articles/firewall.md)
 
-#### nftables
-`nftables` é um subsistema do *kernel* Linux desenvolvido para substituir e unificar as implementações `{ip,ip6,arp,eb}tables`.  
-No conceito básico do `nftables`, existem principalmente *tables* e *chains*.
-
-*Tables* são conjuntos lógicos de *chains*.  
-Toda *table* pertence a uma família.
-
-```plaintext
-Família   Finalidade        Substitui
-ip	      IPv4              iptables
-ip6	      IPv6              ip6tables
-inet	    IPv4 e IPv6       iptables e ip6tables
-arp	      ARP               arptables
-bridge	  Bridge Ethernet   ebtables
-```
-
-*Chains* são um conjunto de *rules* armazenados dentro de uma *table*.  
-Podem ser classificadas em *base chains*, que atuam em pontos específicos do fluxo de rede do kernel (como *input*, *output*, *forward*), ou em *regular chains*, que são usadas para agrupar *rules* e saltar para elas.
-
-As *rules* são processadas de cima para baixo, em ordem sequencial.  
-
-Comandos básicos para administrar o `nftables`.
-
-```bash
-nft list ruleset                      # Lista todas as regras
-
-nft flush ruleset                     # Remove todas as regras
-
-nft -c -f arquivo.conf                # Valida um arquivo de configuração
-nft -f arquivo.conf                   # Carrega um conjunto de regras
-# -c, --check
-# -f, --file
-
-nft list tables
-nft list table familia nome_tabela    # Lista todas as regras de uma tabela
-
-nft add table familia nome_tabela
-
-nft delete table familia nome_tabela
-
-nft flush table familia nome_tabela   # Remove todas as regras de uma tabela
-```
-
-Faça a instalação do `iptables-nft` conforme instruções no artigo [nftables](https://wiki.archlinux.org/title/Nftables).  
-Edite a configuração `/etc/nftables.conf` conforme sua necessidade.
+#### Swap
+Consulte o artigo [swap](./articles/swap.md)
 
 
 ## Logs
@@ -319,8 +257,8 @@ O diretório `/var/log` tem como propósito armazenar *logs* do sistema e de ser
 De maneira geral, os *logs* no Linux são acessados por:
 
 ```bash
-dmesg                         # dmesg, display message, buffer de logs do kernel
-dmesg | grep -i "error"
+sudo dmesg                    # dmesg, display message, buffer de logs do kernel
+sudo dmesg | grep -i "error"
 
 journalctl                    # Ferramenta do systemd para visualizar logs
 journalctl _UID=id            # Logs por ID de usuário
@@ -334,12 +272,44 @@ journalctl --vacuum-time=x    # Limpa os logs mais antigos do que o período de 
 
 journalctl -k                 # Equivalente ao dmesg
 journalctl -p n               # Logs por prioridade, de 1~7
-journalctl -u name.service    # Logs por serviço             
+journalctl -u name.service    # Logs por serviço
 ```
 
 
-## Sistemas de arquivos
-Consulte o [artigo](./articles/file-systems.md).
+## pacman
+Edite o arquivo `/etc/pacman.conf`:
+
+```plaintext
+# Habilite as opções
+Color
+VerbosePkgLists
+
+# Easter egg, opcional
+ILoveCandy
+```
+
+Exemplos básicos para administrar o `pacman`:
+
+```bash
+du -hs /var/cache/pacman/pkg/   # Verifica o espaço consumido pelo cache dos pacotes
+
+sudo pacman -Rs                 # Remove um pacote e suas dependências não exigidas por outros pacotes
+sudo pacman -Rns                # Remove também os arquivos de configuração
+
+sudo pacman -S pacote           # Instala um pacote
+sudo pacman -Sc                 # Remove do cache versões antigas dos pacotes instalados
+sudo pacman -Scc                # Remove todos os pacotes do cache
+pacman -Ss pacote               # Busca um pacote no repositório remoto
+sudo pacman -Syu                # Atualiza o sistema e todos os pacotes
+
+pacman -Qs pacote               # Lista um pacote instalado
+pacman -Qdqt                    # Lista dependências que não são requeridas por nenhum pacote
+sudo pacman -R $(pacman -Qdqt)  # Remove os pacotes listados acima
+```
+
+
+## Sistemas de Arquivos
+Consulte o artigo [sistemas de arquivos](./articles/file-systems.md).
 
 
 ## Virtualização
