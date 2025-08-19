@@ -246,10 +246,10 @@ Instale e/ou ative as extensões:
 [System Monitor](https://extensions.gnome.org/extension/6807/system-monitor).
 
 #### Firewall
-Consulte o artigo [firewall](./articles/firewall.md)
+Consulte o artigo [firewall](./articles/firewall.md).
 
 #### Swap
-Consulte o artigo [swap](./articles/swap.md)
+Consulte o artigo [swap](./articles/swap.md).
 
 
 ## Logs

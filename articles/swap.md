@@ -1,40 +1,41 @@
 # Swap
 ## Swap space
-*Swap space* destina-se a armazenar páginas de memória virtual ou permitir a suspensão para disco.  
+*Swap space* destina-se a armazenar páginas de memória virtual ou permitir a suspensão para disco.
 
-Quando utilizado para armazenar páginas de memória virtual, ele funciona como uma extensão da memória física (RAM), realizando *swapping* quando não há mais RAM disponível.  
-*swapping* é o processo em que o sistema operacional move temporariamente páginas de memória virtual inativas ou usadas com menos frequência da RAM para o local indicado como *swap*.
+Quando utilizado para armazenar páginas de memória virtual, ele funciona como uma extensão da memória física (RAM), realizando *swapping* quando não há mais RAM disponível.
 
+*Swapping* é o processo em que o sistema operacional move temporariamente páginas de memória virtual inativas ou usadas com menos frequência da RAM para o local indicado como *swap*.
+ 
 > [!TIP]
 > Existem diversas maneiras de uso de um *swap space*.
 >
-> *swap partition*  
-> Partição é dedicada.
+> Em *swap partition*, uma partição dedicada ao *swap*.  
+> Usando um *swap file*, que é um arquivo em disco destinado a *swap*.  
+> Em `zram`, `zswap` e diversas outras maneiras.
 >
-> *swap file*  
-> Arquivo em disco.
->
-> `zram`
-> Módulo do *kernel* Linux utilizado para criar um dispositivo de bloco compactado em RAM.  
-> Um de seus usos é utilizar blocos criados em RAM como *swap*.
->
-> `zswap`  
-> Recurso do *kernel* Linux que fornece um *cache* RAM compactado para o *swap*.  
-> Possibilita que páginas sejam compactadas e armazenadas em um *pool* na RAM.  
-> Quando não há mais espaço no *pool* ou na própria RAM, a página é descompactada e transferida para o *swap*.
->
-> Usar *swap* é opcional, e a abordagem escolhida depende do hardware e contará com vantagens e desvantagens.  
+> Usar *swap* é algo opcional, maneira escolhida depende do hardware, de como o dispositivo é usado, e contará com vantagens e desvantagens.  
 > Veja maiores detalhes em [swap](https://wiki.archlinux.org/title/Swap).
 
 > [!IMPORTANT]
-> Considero a utilização do *swap* como algo pessoal.  
+> Não use *swap* apenas por usar, valide se ele é necessário para você.
 >
 > Por exemplo, *swap* em `zram` ocupa parte da RAM e pode elevar o consumo de CPU devido à compressão e gerar impacto em processadores menos potentes.  
 > Já uma partição *swap* pode nunca ser utilizada em sistemas com grande quantidade de RAM.
 >
-> No meu caso, em que tenho uma quantidade significativa de RAM, não uso suspensão, abro poucos programas simultaneamente e não quero alocar blocos gerados pela `zram` em RAM, não faz muito sentido o uso de *swap*.
-> Porém, visando evitar qualquer problema, gosto de utilizar um `swap file` com uma capacidade baixa (algo como 4G).  
+> No meu caso, em que tenho uma quantidade significativa de RAM, não uso suspensão, utilizo poucos programas simultaneamente e não quero alocar blocos comprimidos em RAM, não faz muito sentido o uso de *swap*.  
+> Porém, visando evitar qualquer problema, gosto de utilizar um `swap file` com uma capacidade baixa, algo como 4G.  
 > É um espaço que não fará falta e provavelmente nunca será usado, mas estará disponível caso necessário.
+
+
+## zram
+`zram` é um módulo do *kernel* Linux utilizado para criar um dispositivo de bloco compactado em RAM.  
+Um de seus usos é utilizar blocos criados em RAM como *swap*.
+
+
+## zswap
+Recurso do *kernel* Linux que fornece um *cache* RAM compactado para o *swap*.  
+Possibilita que páginas sejam compactadas e armazenadas em um *pool* na RAM.  
+Quando não há mais espaço no *pool* ou na própria RAM, a página é descompactada e transferida para o *swap*.
 
 
 ## Swappiness
