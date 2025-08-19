@@ -6,7 +6,7 @@ O `zsh` oferece uma enorme capacidade de customização e diversos *plugins*.
 É o *shell* que eu mais tenho familiaridade.
 
 Instale o `zsh` e em seguida abra o assistente de configuração:  
-`pacman -S zsh`  
+`sudo pacman -S zsh`  
 `zsh`
 
 ### Oh My Zsh
@@ -21,7 +21,7 @@ Instale o [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh).
 Instale o tema [Powerlevel10k](https://github.com/romkatv/powerlevel10k).
 
 Instale os *plugins*:  
-[zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions);
+[zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions);  
 [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting).
 
 > [!TIP]
