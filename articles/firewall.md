@@ -10,11 +10,11 @@ Toda *table* pertence a uma família.
 
 ```plaintext
 Família   Finalidade        Substitui
-ip	      IPv4              iptables
-ip6	      IPv6              ip6tables
-inet	    IPv4 e IPv6       iptables e ip6tables
-arp	      ARP               arptables
-bridge	  Bridge Ethernet   ebtables
+ip        IPv4              iptables
+ip6       IPv6              ip6tables
+inet      IPv4 e IPv6       iptables e ip6tables
+arp       ARP               arptables
+bridge    Bridge Ethernet   ebtables
 ```
 
 *Chains* são um conjunto de *rules* armazenados dentro de uma *table*.  

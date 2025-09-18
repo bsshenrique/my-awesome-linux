@@ -188,6 +188,7 @@ pipewire-audio
 pipewire-jack
 pipewire-pulse
 power-profiles-daemon
+reflector
 smartmontools
 sudo
 wget
@@ -208,6 +209,18 @@ passwd usuario
 sudo EDITOR=nano visudo
 # Remova o comentário
 # %wheel      ALL=(ALL:ALL) ALL
+```
+
+Utilize o `reflector` para atualizar a *mirror list*.
+
+```bash
+sudo reflector \
+  --country BR,US \
+  --latest 16 \
+  --protocol https \
+  --save /etc/pacman.d/mirrorlist \
+  --sort rate \
+  --verbose
 ```
 
 Defina os *hosts* em `/etc/hosts`:
@@ -251,8 +264,7 @@ Consulte o artigo [firewall](./articles/firewall.md).
 #### Swap
 Consulte o artigo [swap](./articles/swap.md).
 
-
-## Logs
+### Logs
 O diretório `/var/log` tem como propósito armazenar *logs* do sistema e de serviços.  
 De maneira geral, os *logs* no Linux são acessados por:
 
@@ -275,8 +287,7 @@ journalctl -p n               # Logs por prioridade, de 1~7
 journalctl -u name.service    # Logs por serviço
 ```
 
-
-## pacman
+### pacman
 Edite o arquivo `/etc/pacman.conf`:
 
 ```plaintext
@@ -325,6 +336,8 @@ Para utilizar containers, uma maneira bem simples é por meio do Docker:
 Encerre a sessão e em seguida entre novamente.
 
 ### Máquinas virtuais
-Consulte o [artigo](./articles/virtual-machines.md).
+Consulte o artigo [máquinas virtuais](./articles/virtual-machines.md).
+
+
 
 
