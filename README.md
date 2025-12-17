@@ -105,22 +105,17 @@ Além dos pacotes essenciais, instale o [microcode](https://wiki.archlinux.org/t
 `pacstrap -K /mnt amd-ucode base linux linux-firmware nano networkmanager`
 
 #### Localização
-Edite o `/etc/locale.gen`:
-
-```plaintext
-# Habilite as opções
-en_US.UTF-8 UTF-8
-pt_BR.UTF-8 UTF-8
-```
-
 ```bash
+nano /etc/locale.gen
+# Remova o comentário de "en_US.UTF-8 UTF-8" e "pt_BR.UTF-8 UTF-8"
+
 locale-gen
 echo "LANG=en_US.UTF-8" >> /etc/locale.conf
 echo "KEYMAP=br-abnt2" >> /etc/vconsole.conf
 ```
 
 > [!TIP]
-> Altere as configurações de formato utilizando o ambiente gráfico e após a instalação do sistema.
+> Altere as configurações de formato utilizando o ambiente gráfico após a instalação do sistema.
 
 #### Boot loader
 Instale o `systemd-boot` utilizando o comando `bootctl install`.
@@ -136,13 +131,6 @@ editor        no
 
 Adicione a *entry* `esp/loader/entries/arch.conf` conforme o exemplo [adding loaders](https://wiki.archlinux.org/title/Systemd-boot#Adding_loaders).
 
-> [!IMPORTANT]
-> Ao usar algum *microcode*, como a `amd-ucode.img`, deve-se sempre referenciá-lo antes do `initrd` principal.
-
-> [!IMPORTANT]
-> Para utilizar um subvolume como um ponto de montagem, faça o apontamento no *loader*.  
-> Confira o exemplo [mounting subvolume as root](https://wiki.archlinux.org/title/Btrfs#Mounting_subvolume_as_root).
-
 ```plaintext
 title   Arch Linux
 linux   /vmlinuz-linux
@@ -150,6 +138,12 @@ initrd  /amd-ucode.img
 initrd  /initramfs-linux.img
 options root=UUID=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX rootflags=subvol=@ rw
 ```
+
+> [!IMPORTANT]
+> Ao usar algum *microcode*, como a `amd-ucode.img`, deve-se sempre referenciá-lo antes do `initrd` principal.
+>
+> Para utilizar um subvolume como um ponto de montagem, faça o apontamento no *loader*.  
+> Confira o exemplo [mounting subvolume as root](https://wiki.archlinux.org/title/Btrfs#Mounting_subvolume_as_root).
 
 > [!TIP]
 > `UUID`, `PARTUUID` ou semelhante são coisas diferentes.
